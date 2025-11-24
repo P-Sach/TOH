@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower of Hanoi Visualization</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .disk {
+            transition: all 0.5s ease-in-out;
+            cursor: pointer;
+        }
+        .tower {
+            transition: all 0.3s ease;
+        }
+        .disk:hover {
+            transform: translateY(-5px);
+            filter: brightness(1.2);
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .solving {
+            animation: pulse 1s infinite;
+        }
+    </style>
+</head>
+<body class="bg-black min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-5xl font-bold text-white mb-4 drop-shadow-lg">
+                Tower of Hanoi
+            </h1>
+            <p class="text-gray-400 text-lg">Move all disks from the left tower to the right tower</p>
+        </div>
+
+        <!-- Controls -->
+        <div class="bg-gray-900 border border-gray-700 rounded-xl p-6 mb-8 shadow-2xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div>
+                    <label class="block text-white mb-2 font-semibold">Number of Disks:</label>
+                    <input type="range" id="diskCount" min="3" max="8" value="4" 
+                           class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                    <div class="text-center text-white text-xl font-bold mt-2" id="diskCountDisplay">4</div>
+                </div>
+                <div>
+                    <label class="block text-white mb-2 font-semibold">Animation Speed:</label>
+                    <input type="range" id="speed" min="100" max="1000" value="500" step="100"
+                           class="w-full h-2 bg-green-200 rounded-lg appearance-none cursor-pointer">
+                    <div class="text-center text-white text-xl font-bold mt-2" id="speedDisplay">500ms</div>
+                </div>
+                <div class="flex items-end">
+                    <button id="solveBtn" 
+                            class="w-full bg-white hover:bg-gray-200 text-black font-bold py-3 px-6 rounded-lg shadow-lg transform hover:scale-105 transition-all">
+                        Auto Solve
+                    </button>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <button id="resetBtn" 
+                        class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform hover:scale-105 transition-all">
+                    Reset
+                </button>
+                <button id="stopBtn" 
+                        class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform hover:scale-105 transition-all">
+                    Stop
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="bg-gray-900 border border-gray-700 rounded-xl p-4 text-center">
+                <div class="text-gray-400 text-sm mb-1">Moves</div>
+                <div class="text-white text-3xl font-bold" id="moveCount">0</div>
+            </div>
+            <div class="bg-gray-900 border border-gray-700 rounded-xl p-4 text-center">
+                <div class="text-gray-400 text-sm mb-1">Minimum Moves</div>
+                <div class="text-white text-3xl font-bold" id="minMoves">15</div>
+            </div>
+            <div class="bg-gray-900 border border-gray-700 rounded-xl p-4 text-center">
+                <div class="text-gray-400 text-sm mb-1">Status</div>
+                <div class="text-white text-xl font-bold" id="status">Ready</div>
+            </div>
+        </div>
+
+        <!-- Game Board -->
+        <div class="bg-gray-900 border border-gray-700 rounded-xl p-8 shadow-2xl">
+            <div id="gameBoard" class="flex justify-around items-end h-96 relative">
+                <!-- Towers will be generated here -->
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="mt-8 bg-gray-900 border border-gray-700 rounded-xl p-6">
+            <h2 class="text-2xl font-bold text-white mb-4">How to Play</h2>
+            <ul class="text-gray-400 space-y-2">
+                <li>Click "Auto Solve" to watch the algorithm solve the puzzle automatically</li>
+                <li>The goal is to move all disks from the left tower to the right tower</li>
+                <li>Only one disk can be moved at a time</li>
+                <li>A larger disk cannot be placed on top of a smaller disk</li>
+                <li>Adjust the number of disks and animation speed using the sliders</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
